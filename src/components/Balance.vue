@@ -17,6 +17,17 @@ export default {
       accountBalance: '',
       availableBalance: ''
     }
+  },
+  mounted () {
+    this.$api.get('/money', {}, response => {
+      if (response.status >= 200 && response.status < 300) {
+        const data = response.data.data
+        this.accountBalance = data.AccountBalance
+        this.availableBalance = data.AvailableBalance
+      } else {
+        alert('请求失败')
+      }
+    })
   }
 }
 </script>
