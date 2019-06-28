@@ -3,7 +3,7 @@
     <div>
       选择兑换货币类型：
       <ul>
-        <li v-for=""></li>
+        <li></li>
       </ul>
     </div>
     <div>
@@ -12,7 +12,6 @@
     </div>
 <!--    弹框确认后，弹框成功-->
     <button>提交</button>
-    <button>返回主页面</button>
   </div>
 </template>
 

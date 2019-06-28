@@ -8,7 +8,6 @@
     </div>
 <!--    提交后弹框确认-->
     <button>提交</button>
-    <button>返回主页面</button>
   </div>
 </template>
 

@@ -7,7 +7,6 @@
     <div>再次输入密码</div>
     <input type="password">
     <button>提交</button>
-    <button>返回主页面</button>
   </div>
 </template>
 

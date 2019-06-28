@@ -1,9 +1,8 @@
 <template>
   <div>
     <ul>
-      <li v-for=""></li>
+      <li></li>
     </ul>
-    <button>退出</button>
   </div>
 </template>
 

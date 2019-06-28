@@ -1,9 +1,14 @@
 <template>
   <div>
-    <button>理财产品</button>
-    <button>外汇汇率</button>
+    <div>
+      <router-link :to="{name: 'ConsultBusiness'}">理财产品</router-link>
+      <router-link :to="{name: 'ConsultRate'}">外汇汇率</router-link>
+      <router-view/>
+    </div>
 <!--    退出到登录页面-->
-    <button>退出</button>
+    <div>
+      <router-link :to="{name: 'Login'}">退出</router-link>
+    </div>
   </div>
 </template>
 

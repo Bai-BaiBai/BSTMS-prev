@@ -6,7 +6,6 @@
   <div>
     可用余额：<label>{{availableBalance}}</label>
   </div>
-  <button>返回主页面</button>
 </div>
 </template>
 

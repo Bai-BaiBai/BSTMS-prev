@@ -13,7 +13,7 @@
     <div>再次输入密码</div>
     <input type="password">
     <button>注册</button>
-    <button>退出</button>
+    <router-link :to="{name: 'Login'}">退出</router-link>
     <div>获得的卡号：{{newCardId}}</div>
   </div>
 </template>

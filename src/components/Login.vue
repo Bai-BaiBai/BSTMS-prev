@@ -7,11 +7,11 @@
       <input type="password">
       <div>
         <button>登录</button>
-        <button>开户</button>
+        <router-link :to="{name: 'CreateAccount'}">开户</router-link>
       </div>
     </form>
     <div>
-      <button>业务咨询</button>
+      <router-link :to="{name: 'Consult'}">业务咨询</router-link>
     </div>
   </div>
 </template>
