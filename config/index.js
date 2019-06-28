@@ -11,8 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      // axiosProperties中设置了baseUrl，代理没用到
       '/api': {
-        target: 'http://localhost:8081'
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+        pathRewrite:{
+          '^/api': ''
+        }
       }
     },
 
