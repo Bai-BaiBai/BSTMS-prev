@@ -2,9 +2,9 @@
   <div>
     <form action="">
       <div>银行卡号：</div>
-      <input type="text">
+      <input type="text" v-model="cardId">
       <div>密码：</div>
-      <input type="password">
+      <input type="password" v-model="password">
       <div>
         <button>登录</button>
         <router-link :to="{name: 'CreateAccount'}">开户</router-link>
@@ -18,7 +18,13 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      cardId: '',
+      password: ''
+    }
+  }
 }
 </script>
 
