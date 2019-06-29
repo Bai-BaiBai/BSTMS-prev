@@ -74,7 +74,7 @@ export default {
         if (response.status >= 200 && response.status < 300) {
           const data = response.data
           if (data.code === 1) {
-            alert('转账失败,余额不足')
+            alert(response.data.error)
           } else {
             alert('转账成功')
             this.cardIdTo = ''

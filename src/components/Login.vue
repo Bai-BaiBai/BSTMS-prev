@@ -43,7 +43,7 @@ export default {
           const data = response.data
           // 如果后台返回的code为1说明验证失败
           if (data.code === 1) {
-            alert('用户名或密码错误')
+            alert(response.data.error)
           } else {
             // 否则跳转到主页面
             this.$router.push('/main')

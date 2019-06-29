@@ -53,7 +53,7 @@ export default {
           if (response.data.code === 0) {
             alert('更新成功')
           } else {
-            alert('密码错误，更新失败')
+            alert(response.data.error)
           }
           this.oldPassword = ''
           this.newPassword = ''

@@ -43,7 +43,7 @@ export default {
         if (response.status >= 200 && response.status < 300) {
           const data = response.data
           if (data.code === 1) {
-            alert('存款失败')
+            alert(response.data.error)
           } else {
             // 成功后跳到查询余额界面
             alert('存款成功')

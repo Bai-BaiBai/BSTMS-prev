@@ -60,7 +60,7 @@ export default {
         if (response.status >= 200 && response.status < 300) {
           const data = response.data
           if (data.code === 1) {
-            alert('取款失败,余额不足')
+            alert(response.data.error)
           } else {
             // 成功后跳到查询余额界面
             alert('取款成功')
