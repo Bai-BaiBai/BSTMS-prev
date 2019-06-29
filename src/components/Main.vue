@@ -9,7 +9,7 @@
       <router-link :to="{name: 'Transfer'}">转账</router-link>
       <router-link :to="{name: 'ExchangeCurrency'}">货币交易</router-link>
       <router-link :to="{name: 'Main'}">返回主页面</router-link>
-      <button>退卡</button>
+      <button @click="logout()">退卡</button>
       <router-view />
     </div>
   </div>
@@ -17,7 +17,19 @@
 
 <script>
 export default {
-  name: 'Main'
+  name: 'Main',
+  methods: {
+    logout () {
+      this.$api.get('/logout', {}, response => {
+        if (response.status >= 200 && response.status < 300) {
+          this.$router.push('/')
+          alert('退出成功')
+        } else {
+          alert('退卡失败')
+        }
+      })
+    }
+  }
 }
 </script>
 
