@@ -2,9 +2,9 @@
   <div>
     <form action="">
       <div>银行卡号：</div>
-      <input type="text" v-model="cardId">
+      <input placeholder="请输入18位银行卡号" type="text" v-model="cardId">
       <div>密码：</div>
-      <input type="password" v-model="password">
+      <input placeholder="请输入6位密码" type="password" v-model="password">
       <div>
         <button @click="login()">登录</button>
         <router-link :to="{name: 'CreateAccount'}">开户</router-link>

@@ -44,7 +44,7 @@ export default {
         return
       }
       var selectedObj = this.currencyList[this.selected % 1001]
-      if (!confirm('兑换货币的金额为：' + this.money + selectedObj.currencyType + '; 需要扣款：' + this.money * selectedObj.exchangeRate)) {
+      if (!confirm('兑换货币的金额为：' + this.money + selectedObj.currencyType + '; 需要扣款：' + (this.money * selectedObj.exchangeRate).toFixed(2))) {
         return
       }
       this.$api.post('/forignCurrency', {
