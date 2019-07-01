@@ -3,6 +3,7 @@
   <div>
   当前余额：<label>{{accountBalance}}</label>
   </div>
+  <br>
   <div>
     可用余额：<label>{{availableBalance}}</label>
   </div>

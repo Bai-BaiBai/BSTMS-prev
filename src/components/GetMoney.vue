@@ -8,6 +8,7 @@
       <button @click="get500()">取款：500</button>
       <button @click="get1000()">取款：1000</button>
     </div>
+    <br>
 <!--    提交后弹框确认-->
     <button @click="execute()">提交</button>
   </div>
