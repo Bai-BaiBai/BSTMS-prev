@@ -106,7 +106,7 @@ export default {
         if (response.status >= 200 && response.status < 300) {
           if (response.data.code === 0) {
             // eslint-disable-next-line no-undef
-            alert('开户成功，银行卡号为：' + (BigInt(response.data.data.cardId)).toLocaleString())
+            alert('开户成功，银行卡号为：' + response.data.data.cardIdString)
           } else {
             alert(response.data.error)
           }

@@ -43,7 +43,8 @@ export default {
         alert('非法的输入：' + this.msg)
         return
       }
-      if (!confirm('兑换的金额为：' + this.money)) {
+      var selectedObj = this.currencyList[this.selected % 1001]
+      if (!confirm('兑换货币的金额为：' + this.money + selectedObj.currencyType + '; 需要扣款：' + this.money * selectedObj.exchangeRate)) {
         return
       }
       this.$api.post('/forignCurrency', {
