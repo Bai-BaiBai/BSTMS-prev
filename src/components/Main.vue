@@ -19,13 +19,18 @@
 export default {
   name: 'Main',
   methods: {
+    /**
+     * 执行退卡
+     */
     logout () {
+      // 发送退卡请求，成功给出提示，并返回到登录页面
       this.$api.get('/logout', {}, response => {
         if (response.status >= 200 && response.status < 300) {
           this.$router.push('/')
-          alert('退出成功')
+          alert(this.$CONST.LOGOUT_SUCCESS)
         } else {
-          alert('退卡失败')
+          // 请求失败提示(网络或后台故障)
+          alert(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

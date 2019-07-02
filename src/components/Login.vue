@@ -21,20 +21,27 @@ export default {
   name: 'Login',
   data () {
     return {
-      cardId: '123456789012345678',
-      password: '12345678'
+      cardId: '',
+      password: ''
     }
   },
   methods: {
+    /**
+     * 执行登录
+     * @returns {boolean}
+     */
     login () {
+      // 判断银行卡号合法性，并给出提示
       if (this.cardId.length !== 18 || !/^[0-9]+$/.test(this.cardId)) {
-        alert('非法的银行卡号')
+        alert(this.$CONST.TIP_ILLEGAL_CARD_ID)
         return false
       }
+      // 判断密码合法性，并给出提示
       if (this.password.length !== 6 || !/^[0-9]+$/.test(this.password)) {
-        alert('非法的密码')
+        alert(this.$CONST.TIP_PASSWOR_NUMBERS)
         return false
       }
+      // 发送登录请求
       this.$api.post('/login', {
         cardId: this.cardId,
         password: this.password
@@ -49,7 +56,8 @@ export default {
             this.$router.push('/main')
           }
         } else {
-          alert('请求失败')
+          // 请求失败提示(网络或后台故障)
+          alert(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

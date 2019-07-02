@@ -38,48 +38,74 @@ export default {
     }
   },
   computed: {
+    /**
+     * 监听用户姓名的填写，如果未填写，给出提示
+     * @returns {string}
+     */
     usernameMsg: function () {
       if (this.username === '') {
-        return '请输入姓名'
+        return this.$CONST.TIP_NAME_INPUT
       } else {
         return ''
       }
     },
+    /**
+     * 监听用户身份证号的填写，如果未填写或填写不正确，给出提示
+     * @returns {string}
+     */
     idNumbersMsg: function () {
       if (this.idNumbers === '' || this.idNumbers.length !== 18 || !/^[0-9]+$/.test(this.idNumbers)) {
-        return '请输入18位身份证号'
+        return this.$CONST.TIP_ID_CARD_NUMBERS
       } else {
         return ''
       }
     },
+    /**
+     * 监听用户手机号的填写，如果未填写或填写不正确，给出提示
+     * @returns {string}
+     */
     phoneMsg: function () {
       if (this.phone === '' || !/^[0-9]+$/.test(this.phone)) {
-        return '请输入手机号'
+        return this.$CONST.TIP_PHONE_NUMBERS
       } else {
         return ''
       }
     },
+    /**
+     * 监听用户密码的输入，限制密码输入为 6 位数字，否则给出提示
+     * @returns {string}
+     */
     passwordMsg: function () {
       if (this.password === '' || this.password.length !== 6 || !/^[0-9]+$/.test(this.password)) {
-        return '请输入6位数字密码'
+        return this.$CONST.TIP_PASSWOR_NUMBERS
       } else {
         return ''
       }
     },
+    /**
+     * 监听重复密码的输入，如果两次密码输入不一致，给出提示
+     * @returns {string}
+     */
     repeatMsg: function () {
       if (this.repeat !== this.password) {
-        return '两次输入不一致'
+        return this.$CONST.TIP_REPEAT_PASSWORD_DIFF
       } else {
         return ''
       }
     }
   },
   methods: {
+    /**
+     * 在焦点离开手机号输入框时，触发认证用户信息
+     */
     verifyUser () {
+      // 当输入姓名、身份证号、手机号不合法时，给出弹框提示，并返回
       if (this.username === '' || this.idNumbers === '' || this.phone === '') {
-        alert('请输入完整的身份信息')
+        alert(this.$CONST.TIP_NON_COMPLETE_INFORMATION)
         return
       }
+      // 三项输入合法时，发生用户信息认证请求
+      // 如果未通过认证，数据库中不存在该用户、或信息填写有误，给出“无效用户”的提示
       this.$api.post('/verifyUser', {
         idNumbers: this.idNumbers,
         username: this.username,
@@ -93,25 +119,32 @@ export default {
         }
       })
     },
+    /**
+     * 执行注册功能
+     */
     execute () {
+      // 检查页面中的所有输入是否合法，不合法则给出弹框提示并返回
       if (this.usernameMsg !== '' || this.idNumbersMsg !== '' || this.phoneMsg !== '' || this.verifyMsg !== '' || this.passwordMsg !== '' || this.repeatMsg !== '') {
-        alert('非法的输入：' + this.usernameMsg + ' ' + this.idNumbersMsg + ' ' + this.phoneMsg + ' ' + this.verifyMsg + ' ' + this.passwordMsg + ' ' + this.repeatMsg)
+        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.usernameMsg + ' ' + this.idNumbersMsg + ' ' + this.phoneMsg + ' ' + this.verifyMsg + ' ' + this.passwordMsg + ' ' + this.repeatMsg)
         return
       }
+      // 均合法时，发送创建账户请求，参数为身份证号、密码、卡类型
       this.$api.post('/createAccount', {
         idNumbers: this.idNumbers,
         password: this.password,
         cardType: this.cardType
       }, response => {
         if (response.status >= 200 && response.status < 300) {
+          // 如果开户成功，给出新的银行卡号
           if (response.data.code === 0) {
             // eslint-disable-next-line no-undef
-            alert('开户成功，银行卡号为：' + response.data.data.cardIdString)
+            alert(this.$CONST.CREATE_ACCOUNT_SUCCESS + response.data.data.cardIdString)
           } else {
             alert(response.data.error)
           }
         } else {
-          alert('请求失败，请稍后重试')
+          // 请求失败提示(网络或后台故障)
+          alert(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

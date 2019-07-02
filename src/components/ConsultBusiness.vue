@@ -22,6 +22,9 @@ export default {
       businessInfoList: []
     }
   },
+  /**
+   * 页面加载时发生查询全部理财产品请求
+   */
   mounted () {
     this.$api.get('/businessInfo', {}, response => {
       const data = response.data.data

@@ -19,14 +19,19 @@ export default {
       availableBalance: ''
     }
   },
+  /**
+   * 页面加载时发生查询余额请求
+   */
   mounted () {
     this.$api.get('/money', {}, response => {
       if (response.status >= 200 && response.status < 300) {
         const data = response.data.data
+        // 将余额和可用金额与组件data绑定
         this.accountBalance = data.AccountBalance
         this.availableBalance = data.AvailableBalance
       } else {
-        alert('请求失败')
+        // 请求失败提示(网络或后台故障)
+        alert(this.$CONST.REQUEST_FAILURE)
       }
     })
   }

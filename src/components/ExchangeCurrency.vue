@@ -22,13 +22,16 @@ export default {
   name: 'ExchangeCurrency',
   data () {
     return {
-      msg: '必须为100的整数倍',
+      msg: this.$CONST.TIP_100_MULTIPLE,
       currencyList: [],
       selected: '1001',
       money: '',
-      tradeLocation: '营业厅'
+      tradeLocation: this.$CONST.TRADE_LOCATION
     }
   },
+  /**
+   * 页面加载时，发送查询外汇请求，加载支持的外汇
+   */
   mounted () {
     this.$api.get('/exchangeRate', {}, response => {
       const data = response.data.data
@@ -38,15 +41,22 @@ export default {
     })
   },
   methods: {
+    /**
+     * 执行交易
+     */
     execute () {
+      // 检查输入是否合法
       if (this.msg !== '') {
-        alert('非法的输入：' + this.msg)
+        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.msg)
         return
       }
+      // 取出选择的货币信息
       var selectedObj = this.currencyList[this.selected % 1001]
+      // 给用户确认兑换信息
       if (!confirm('兑换货币的金额为：' + this.money + selectedObj.currencyType + '; 需要扣款：' + (this.money * selectedObj.exchangeRate).toFixed(2))) {
         return
       }
+      // 发送交易请求
       this.$api.post('/forignCurrency', {
         exchangeRateId: this.selected,
         money: this.money,
@@ -54,23 +64,28 @@ export default {
       }, response => {
         if (response.status >= 200 && response.status < 300) {
           const data = response.data
+          // 如果后台返回交易失败，给出错误信息
           if (data.code === 1) {
             alert(response.data.error)
           } else {
             // 成功后跳到查询余额界面
-            alert('兑换成功')
+            alert(this.$CONST.EXCHANGE_CURRENCY_SUCCESS)
             this.$router.push('/main/balance')
           }
         } else {
-          alert('请求失败')
+          // 请求失败提示(网络或后台故障)
+          alert(this.$CONST.REQUEST_FAILURE)
         }
       })
     }
   },
   watch: {
+    /**
+     * 监听交易金额的输入，验证输入合法性
+     */
     money: function () {
       if (this.money === '0' || !/^[0-9]+$/.test(this.money) || parseInt(this.money) % 100 !== 0) {
-        this.msg = '必须为100的整数倍'
+        this.msg = this.$CONST.TIP_100_MULTIPLE
       } else {
         this.msg = ''
       }

@@ -12,29 +12,36 @@ export default {
   name: 'SaveMoney',
   data () {
     return {
-      msg: '必须为100的整数倍',
-      state: 1,
-      tradeLocation: '营业厅',
+      msg: this.$CONST.TIP_100_MULTIPLE,
+      state: this.$CONST.SAVE_MONEY_STATE,
+      tradeLocation: this.$CONST.TRADE_LOCATION,
       money: ''
     }
   },
   watch: {
-    // 监听money值，给出提示信息
+    /**
+     * 监听money值的合法性，给出提示信息
+     */
     money: function () {
       // eslint-disable-next-line eqeqeq
       if (this.money && this.money != 0 && this.money % 100 == 0) {
         this.msg = ''
       } else {
-        this.msg = '必须为100的整数倍'
+        this.msg = this.$CONST.TIP_100_MULTIPLE
       }
     }
   },
   methods: {
+    /**
+     * 执行存款
+     */
     execute () {
+      // 验证页面输入的合法性
       if (this.msg !== '') {
-        alert('非法的输入：' + this.msg)
+        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.msg)
         return
       }
+      // 发送存款请求
       this.$api.put('/money', {
         state: this.state,
         money: this.money,
@@ -46,11 +53,12 @@ export default {
             alert(response.data.error)
           } else {
             // 成功后跳到查询余额界面
-            alert('存款成功')
+            alert(this.$CONST.SAVE_MONEY_SUCCESS)
             this.$router.push('/main/balance')
           }
         } else {
-          alert('请求失败')
+          // 请求失败提示(网络或后台故障)
+          alert(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

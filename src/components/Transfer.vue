@@ -16,31 +16,40 @@ export default {
   name: 'Transfer',
   data () {
     return {
-      tradeLocation: '营业厅',
+      tradeLocation: this.$CONST.TRADE_LOCATION,
       cardIdTo: '',
       money: '',
-      cardErrorMsg: '请输入对方的18位银行卡号',
+      cardErrorMsg: this.$CONST.TIP_PLEASE_INPUT_CARD_ID,
       msg: ''
     }
   },
   watch: {
+    /**
+     * 监听对方银行卡号的输入，判断合法性
+     */
     cardIdTo: function () {
       if (this.cardIdTo.length !== 18 || !/^[0-9]+$/.test(this.cardIdTo)) {
-        this.cardErrorMsg = '非法的账号'
+        this.cardErrorMsg = this.$CONST.TIP_ILLEGAL_CARD_ID
       } else {
         this.cardErrorMsg = ''
       }
     },
+    /**
+     * 监听金额输入的合法性，最大转账金额为 50000
+     */
     money: function () {
       // eslint-disable-next-line eqeqeq
       if (!/^[0-9]+$/.test(this.money) || this.money % 1 !== 0 || this.money == 0 || parseInt(this.money) > 50000) {
-        this.msg = '请输入大于0的整数且不大于50000的整数'
+        this.msg = this.$CONST.TIP_TRANSFER_MONEY_LIMIT
       } else {
         this.msg = ''
       }
     }
   },
   methods: {
+    /**
+     * 焦点离开对方银行卡号输入框时，进行账号认证
+     */
     verifyAccount () {
       // 非法的输入不进行账号认证
       if (this.cardErrorMsg !== '') {
@@ -51,14 +60,17 @@ export default {
         cardId: this.cardIdTo
       }, response => {
         if (response.data.code === 1) {
-          this.cardErrorMsg = '不存在的账号'
+          this.cardErrorMsg = this.$CONST.TIP_OPPOSITE_NOT_EXIST
         }
       })
     },
+    /**
+     *  执行转账
+     */
     execute () {
       // 如果有错误信息给出弹框提示
       if (this.cardErrorMsg !== '' || this.msg !== '') {
-        alert('非法的输入：' + this.cardErrorMsg + '; ' + this.msg)
+        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.cardErrorMsg + '; ' + this.msg)
         return
       }
       // 确认转账金额和账号
@@ -73,15 +85,18 @@ export default {
       }, response => {
         if (response.status >= 200 && response.status < 300) {
           const data = response.data
+          // 失败给出错误信息
           if (data.code === 1) {
             alert(response.data.error)
           } else {
-            alert('转账成功')
+            // 成功后，弹框提示
+            alert(this.$CONST.TRANSFER_SUCCESS)
             this.cardIdTo = ''
             this.money = ''
           }
         } else {
-          alert('请求失败')
+          // 请求失败提示(网络或后台故障)
+          alert(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

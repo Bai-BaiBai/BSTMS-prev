@@ -18,6 +18,9 @@ export default {
       currencyInfoList: []
     }
   },
+  /**
+   * 页面加载时，发生查询全部汇率信息请求
+   */
   mounted () {
     this.$api.get('/exchangeRate', {}, response => {
       const data = response.data.data
