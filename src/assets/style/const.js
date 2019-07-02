@@ -1,0 +1,77 @@
+/**
+ * 字符串常量库
+  */
+
+/**
+ * 一体机所在地
+ */
+var TRADE_LOCATION = '营业厅'
+
+/**
+ * 存取款状态码
+ * @type {number}
+ */
+var SAVE_MONEY_STATE = 1
+var GET_MONEY_SATE = 2
+
+/**
+ * 功能请求失败或成功提示信息
+ */
+var REQUEST_FAILURE = '请求失败，请稍后重试'
+var CREATE_ACCOUNT_SUCCESS = '开户成功，银行卡号为：'
+var EXCHANGE_CURRENCY_SUCCESS = '兑换成功'
+var GET_MONEY_SUCCESS = '取款成功'
+var LOGOUT_SUCCESS = '退卡成功'
+var SAVE_MONEY_SUCCESS = '存款成功'
+var TRANSFER_SUCCESS = '转账成功'
+var UPDATE_PASSWORD_SUCCESS = '更新成功'
+
+/**
+ * 验证输入合法性的提示信息
+ */
+var TIP_NAME_INPUT = '请输入姓名'
+var TIP_ID_CARD_NUMBERS = '请输入18位数字身份证号'
+var TIP_PHONE_NUMBERS = '请输入手机号'
+var TIP_PASSWOR_NUMBERS = '请输入6位数字密码'
+var TIP_NON_COMPLETE_INFORMATION = '请输入完整的身份信息'
+var TIP_TRANSFER_MONEY_LIMIT = '请输入大于0的整数且不大于50000的整数'
+var TIP_PLEASE_INPUT_CARD_ID = '请输入对方的18位银行卡号'
+var TIP_100_MULTIPLE = '金额必须为100的整数倍'
+var TIP_50_MULTIPLE = '金额必须为50的整数倍'
+
+var TIP_REPEAT_PASSWORD_DIFF = '两次密码输入不一致'
+var TIP_ILLEGAL_INPUT = '非法的输入：'
+var TIP_ILLEGAL_CARD_ID = '非法的银行卡号'
+var TIP_OPPOSITE_NOT_EXIST = '不存在的账号'
+var TIP_OLD_NEW_PASSWORD_NOT_DIFF = '新密码不能与旧密码相同'
+var TIP_CURRENT_INPUT_MONEY = '当前输入金额：'
+
+export default {
+  // eslint-disable-next-line no-use-before-define
+  SAVE_MONEY_STATE,
+  GET_MONEY_SATE,
+  TRADE_LOCATION,
+  REQUEST_FAILURE,
+  TIP_NAME_INPUT,
+  TIP_ID_CARD_NUMBERS,
+  TIP_PHONE_NUMBERS,
+  TIP_PASSWOR_NUMBERS,
+  TIP_NON_COMPLETE_INFORMATION,
+  TIP_ILLEGAL_INPUT,
+  CREATE_ACCOUNT_SUCCESS,
+  TIP_100_MULTIPLE,
+  TIP_50_MULTIPLE,
+  EXCHANGE_CURRENCY_SUCCESS,
+  GET_MONEY_SUCCESS,
+  TIP_CURRENT_INPUT_MONEY,
+  TIP_ILLEGAL_CARD_ID,
+  LOGOUT_SUCCESS,
+  SAVE_MONEY_SUCCESS,
+  TIP_TRANSFER_MONEY_LIMIT,
+  TIP_OPPOSITE_NOT_EXIST,
+  TIP_PLEASE_INPUT_CARD_ID,
+  TRANSFER_SUCCESS,
+  TIP_OLD_NEW_PASSWORD_NOT_DIFF,
+  TIP_REPEAT_PASSWORD_DIFF,
+  UPDATE_PASSWORD_SUCCESS
+}
