@@ -55,7 +55,7 @@ export default {
     execute () {
       // 验证页面上的输入合法性
       if (this.msg !== '') {
-        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.msg)
+        this.$message.error(this.$CONST.TIP_ILLEGAL_INPUT + this.msg)
         return
       }
       // 给出取款确认提示
@@ -72,15 +72,15 @@ export default {
           const data = response.data
           // 取款失败则给出错误提示
           if (data.code === 1) {
-            alert(response.data.error)
+            this.$message.error(response.data.error)
           } else {
             // 成功后跳到查询余额界面
-            alert(this.$CONST.GET_MONEY_SUCCESS)
+            this.$message.success(this.$CONST.GET_MONEY_SUCCESS)
             this.$router.push('/main/balance')
           }
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

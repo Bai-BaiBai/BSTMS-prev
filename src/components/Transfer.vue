@@ -70,7 +70,7 @@ export default {
     execute () {
       // 如果有错误信息给出弹框提示
       if (this.cardErrorMsg !== '' || this.msg !== '') {
-        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.cardErrorMsg + '; ' + this.msg)
+        this.$message.error(this.$CONST.TIP_ILLEGAL_INPUT + this.cardErrorMsg + '; ' + this.msg)
         return
       }
       // 确认转账金额和账号
@@ -87,16 +87,16 @@ export default {
           const data = response.data
           // 失败给出错误信息
           if (data.code === 1) {
-            alert(response.data.error)
+            this.$message.error(response.data.error)
           } else {
             // 成功后，弹框提示
-            alert(this.$CONST.TRANSFER_SUCCESS)
+            this.$message.success(this.$CONST.TRANSFER_SUCCESS)
             this.cardIdTo = ''
             this.money = ''
           }
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

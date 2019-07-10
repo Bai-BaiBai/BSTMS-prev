@@ -33,12 +33,12 @@ export default {
     login () {
       // 判断银行卡号合法性，并给出提示
       if (this.cardId.length !== 18 || !/^[0-9]+$/.test(this.cardId)) {
-        alert(this.$CONST.TIP_ILLEGAL_CARD_ID)
+        this.$message.error(this.$CONST.TIP_ILLEGAL_CARD_ID)
         return false
       }
       // 判断密码合法性，并给出提示
       if (this.password.length !== 6 || !/^[0-9]+$/.test(this.password)) {
-        alert(this.$CONST.TIP_PASSWOR_NUMBERS)
+        this.$message.error(this.$CONST.TIP_PASSWOR_NUMBERS)
         return false
       }
       // 发送登录请求
@@ -50,14 +50,14 @@ export default {
           const data = response.data
           // 如果后台返回的code为1说明验证失败
           if (data.code === 1) {
-            alert(response.data.error)
+            this.$message.error(response.data.error)
           } else {
             // 否则跳转到主页面
             this.$router.push('/main')
           }
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

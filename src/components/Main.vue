@@ -27,10 +27,10 @@ export default {
       this.$api.get('/logout', {}, response => {
         if (response.status >= 200 && response.status < 300) {
           this.$router.push('/')
-          alert(this.$CONST.LOGOUT_SUCCESS)
+          this.$message.success(this.$CONST.LOGOUT_SUCCESS)
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

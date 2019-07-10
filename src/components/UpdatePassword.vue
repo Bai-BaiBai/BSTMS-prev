@@ -56,7 +56,7 @@ export default {
     update () {
       // 检查是否存在输入错误
       if (this.msg1 !== '' || this.msg2 !== '') {
-        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.msg1 + '; ' + this.msg2)
+        this.$message.error(this.$CONST.TIP_ILLEGAL_INPUT + this.msg1 + '; ' + this.msg2)
         return
       }
       // 发送更新密码请求
@@ -67,16 +67,16 @@ export default {
         if (response.status >= 200 && response.status < 300) {
           // 如果更细成功，给出弹框提示，否则提示错误信息
           if (response.data.code === 0) {
-            alert(this.$CONST.UPDATE_PASSWORD_SUCCESS)
+            this.$message.success(this.$CONST.UPDATE_PASSWORD_SUCCESS)
           } else {
-            alert(response.data.error)
+            this.$message.error(response.data.error)
           }
           this.oldPassword = ''
           this.newPassword = ''
           this.repeat = ''
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

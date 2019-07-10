@@ -31,7 +31,7 @@ export default {
         this.availableBalance = data.AvailableBalance
       } else {
         // 请求失败提示(网络或后台故障)
-        alert(this.$CONST.REQUEST_FAILURE)
+        this.$message.warning(this.$CONST.REQUEST_FAILURE)
       }
     })
   }

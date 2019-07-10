@@ -47,7 +47,7 @@ export default {
     execute () {
       // 检查输入是否合法
       if (this.msg !== '') {
-        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.msg)
+        this.$message.error(this.$CONST.TIP_ILLEGAL_INPUT + this.msg)
         return
       }
       // 取出选择的货币信息
@@ -66,15 +66,15 @@ export default {
           const data = response.data
           // 如果后台返回交易失败，给出错误信息
           if (data.code === 1) {
-            alert(response.data.error)
+            this.$message.error(response.data.error)
           } else {
             // 成功后跳到查询余额界面
-            alert(this.$CONST.EXCHANGE_CURRENCY_SUCCESS)
+            this.$message.success(this.$CONST.EXCHANGE_CURRENCY_SUCCESS)
             this.$router.push('/main/balance')
           }
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }

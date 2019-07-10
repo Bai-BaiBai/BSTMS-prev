@@ -6,6 +6,10 @@ import router from './router'
 import './assets/reset.css'
 import Api from './api/axiosProperties.js'
 import CONST from './assets/style/const'
+import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
+
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 // 引入axios的封装库

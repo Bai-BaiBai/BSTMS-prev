@@ -101,7 +101,7 @@ export default {
     verifyUser () {
       // 当输入姓名、身份证号、手机号不合法时，给出弹框提示，并返回
       if (this.username === '' || this.idNumbers === '' || this.phone === '') {
-        alert(this.$CONST.TIP_NON_COMPLETE_INFORMATION)
+        this.$message.error(this.$CONST.TIP_NON_COMPLETE_INFORMATION)
         return
       }
       // 三项输入合法时，发生用户信息认证请求
@@ -125,7 +125,7 @@ export default {
     execute () {
       // 检查页面中的所有输入是否合法，不合法则给出弹框提示并返回
       if (this.usernameMsg !== '' || this.idNumbersMsg !== '' || this.phoneMsg !== '' || this.verifyMsg !== '' || this.passwordMsg !== '' || this.repeatMsg !== '') {
-        alert(this.$CONST.TIP_ILLEGAL_INPUT + this.usernameMsg + ' ' + this.idNumbersMsg + ' ' + this.phoneMsg + ' ' + this.verifyMsg + ' ' + this.passwordMsg + ' ' + this.repeatMsg)
+        this.$message.error(this.$CONST.TIP_ILLEGAL_INPUT + this.usernameMsg + ' ' + this.idNumbersMsg + ' ' + this.phoneMsg + ' ' + this.verifyMsg + ' ' + this.passwordMsg + ' ' + this.repeatMsg)
         return
       }
       // 均合法时，发送创建账户请求，参数为身份证号、密码、卡类型
@@ -138,13 +138,13 @@ export default {
           // 如果开户成功，给出新的银行卡号
           if (response.data.code === 0) {
             // eslint-disable-next-line no-undef
-            alert(this.$CONST.CREATE_ACCOUNT_SUCCESS + response.data.data.cardIdString)
+            this.$message.success(this.$CONST.CREATE_ACCOUNT_SUCCESS + response.data.data.cardIdString)
           } else {
-            alert(response.data.error)
+            this.$message.error(response.data.error)
           }
         } else {
           // 请求失败提示(网络或后台故障)
-          alert(this.$CONST.REQUEST_FAILURE)
+          this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
       })
     }
