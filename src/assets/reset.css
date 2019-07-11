@@ -44,4 +44,6 @@ input{
   text-align: center;
   margin-bottom: 13px;
 }
-
+button{
+  cursor: pointer;
+}
