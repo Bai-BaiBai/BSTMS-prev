@@ -6,6 +6,12 @@
     <input type="password" v-model="newPassword">
     <div>再次输入密码<label>{{msg2}}</label></div>
     <input type="password" v-model="repeat">
+    <div>
+      请输入预留手机号接收的验证码:
+      <br>
+      <input type="text" v-model="validateCode">
+      <button @click="countDown()" :class="{disabled: !this.canClick}">{{content}}</button>
+    </div>
     <div><button @click="update()">提交</button></div>
   </div>
 </template>
@@ -17,7 +23,11 @@ export default {
     return {
       oldPassword: '',
       newPassword: '',
-      repeat: ''
+      repeat: '',
+      content: '发送验证码',
+      totalTime: 60,
+      validateCode: '',
+      canClick: true
     }
   },
   computed: {
@@ -59,10 +69,16 @@ export default {
         this.$message.error(this.$CONST.TIP_ILLEGAL_INPUT + this.msg1 + '; ' + this.msg2)
         return
       }
+      if (this.validateCode === '') {
+        this.$message.error('请输入验证码')
+        return
+      }
+      // TODO 清空倒计时
       // 发送更新密码请求
       this.$api.put('/password', {
         newPassword: this.newPassword,
-        oldPassword: this.oldPassword
+        oldPassword: this.oldPassword,
+        validateCode: this.validateCode
       }, response => {
         if (response.status >= 200 && response.status < 300) {
           // 如果更细成功，给出弹框提示，否则提示错误信息
@@ -74,10 +90,30 @@ export default {
           this.oldPassword = ''
           this.newPassword = ''
           this.repeat = ''
+          this.validateCode = ''
         } else {
           // 请求失败提示(网络或后台故障)
           this.$message.warning(this.$CONST.REQUEST_FAILURE)
         }
+      })
+    },
+    countDown () {
+      if (!this.canClick) return
+      this.canClick = false
+      this.content = this.totalTime + '秒后重新发送'
+      // eslint-disable-next-line no-unused-vars
+      let clock = window.setInterval(() => {
+        // eslint-disable-next-line no-unused-expressions
+        this.totalTime--
+        this.content = this.totalTime + '秒后重新发送'
+        if (this.totalTime < 0) {
+          window.clearInterval(clock)
+          this.content = '重新发送验证码'
+          this.totalTime = 60
+          this.canClick = true
+        }
+      }, 1000)
+      this.$api.get('/sendsms', {}, response => {
       })
     }
   }
@@ -87,5 +123,11 @@ export default {
 <style scoped>
   label{
     color: red;
+  }
+  .disabled{
+    background-color: #dddddd;
+    border-color: #dddddd;
+    color: #57a3f3;
+    cursor: not-allowed;
   }
 </style>
