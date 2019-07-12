@@ -46,6 +46,9 @@ var TIP_OPPOSITE_NOT_EXIST = '不存在的账号'
 var TIP_OLD_NEW_PASSWORD_NOT_DIFF = '新密码不能与旧密码相同'
 var TIP_CURRENT_INPUT_MONEY = '当前输入金额：'
 
+var SMS_BUTTON_CONTENT = '发送验证码'
+var SMS_BUTTON_TOTALTIME = 60
+
 export default {
   // eslint-disable-next-line no-use-before-define
   SAVE_MONEY_STATE,
@@ -73,5 +76,7 @@ export default {
   TRANSFER_SUCCESS,
   TIP_OLD_NEW_PASSWORD_NOT_DIFF,
   TIP_REPEAT_PASSWORD_DIFF,
-  UPDATE_PASSWORD_SUCCESS
+  UPDATE_PASSWORD_SUCCESS,
+  SMS_BUTTON_CONTENT,
+  SMS_BUTTON_TOTALTIME
 }
