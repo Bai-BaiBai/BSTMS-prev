@@ -24,8 +24,8 @@ export default {
       oldPassword: '',
       newPassword: '',
       repeat: '',
-      content: '发送验证码',
-      totalTime: 60,
+      content: this.$CONST.SMS_BUTTON_CONTENT,
+      totalTime: this.$CONST.SMS_BUTTON_TOTALTIME,
       validateCode: '',
       canClick: true
     }
@@ -73,7 +73,6 @@ export default {
         this.$message.error('请输入验证码')
         return
       }
-      // TODO 清空倒计时
       // 发送更新密码请求
       this.$api.put('/password', {
         newPassword: this.newPassword,
@@ -109,7 +108,7 @@ export default {
         if (this.totalTime < 0) {
           window.clearInterval(clock)
           this.content = '重新发送验证码'
-          this.totalTime = 60
+          this.totalTime = this.$CONST.SMS_BUTTON_TOTALTIME
           this.canClick = true
         }
       }, 1000)
